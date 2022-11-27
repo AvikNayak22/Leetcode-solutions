@@ -1,21 +1,17 @@
 class Solution {
-public:
-    int numberOfArithmeticSlices(vector<int>& nums) {
-      return helper(nums,nums.size(),0);
-    }
-    
-    int helper(vector<int>&nums,int size,int count)
-    {
-        if(size < 3) return 0;
+    public int numberOfArithmeticSlices(int[] nums) {
+      int[] dp = new int[nums.length];
+        int ans = 0;
         
-        if(nums[size-1] - nums[size-2] == nums[size-2] - nums[size-3])
+        for(int i=2;i<nums.length;i++)
         {
-            count++;
-            return count+helper(nums,size-1,count);
+            if(nums[i] - nums[i-1] == nums[i-1] - nums[i-2])
+            {
+                dp[i] = dp[i-1] + 1;
+                ans+=dp[i];
+            }
         }
-        else
-        {
-            return helper(nums,size-1,0);
-        }
+        
+        return ans;
     }
-};
+}
